@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "animal")
 @Entity
@@ -20,13 +22,14 @@ class Animal {
     @Column
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "animal_id")
-    private Owner owner;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "animal_owners", joinColumns = @JoinColumn(name = "animal_id"),
+            inverseJoinColumns = @JoinColumn(name = "owner_id"))
+    public List<Owner> ownerList;
 
-    public Animal(String name, Owner owner) {
+
+    public Animal(String name, List<Owner> ownerList) {
         this.name = name;
-        this.owner = owner;
+        this.ownerList = ownerList;
     }
-
 }

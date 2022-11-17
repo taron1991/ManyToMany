@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 @Slf4j
 public class MainClass {
 
@@ -22,19 +24,11 @@ public class MainClass {
 
             Owner owner = new Owner();
             owner.setName("patrick");
-
             Owner owner2 = new Owner();
             owner2.setName("alex");
 
-            Animal animal = new Animal();
-            animal.setName("sharik");
-            animal.setOwner(owner);
+            Animal animal = new Animal("sharik",List.of(owner2,owner));
 
-            Animal animal2 = new Animal();
-            animal2.setName("mosya");
-            animal2.setOwner(owner2);
-
-            currentSession.save(animal2);
             currentSession.save(animal);
 
             currentSession.getTransaction().commit();

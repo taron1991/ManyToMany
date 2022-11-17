@@ -23,8 +23,10 @@ class Owner {
     @Column
     private String name;
 
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
-    private Animal animal;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "animal_owners", joinColumns = @JoinColumn( name= "owner_id"),
+            inverseJoinColumns = @JoinColumn(name = "animal_id"))
+    public List<Animal> animal = new ArrayList<>();
 
 
 }
